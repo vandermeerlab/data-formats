@@ -1,0 +1,11 @@
+{
+    "class": "spikeextractors.extractors.neoextractors.neuralynxextractor.NeuralynxRecordingExtractor",
+    "module": "spikeextractors",
+    "kwargs": {
+        "dirname": "/Users/manishm/Work/vanDerMeerLab/NWB/data/MotivationalT-v2/R050/R050-2014-03-31_raw",
+        "seg_index": 0,
+        "block_index": 0
+    },
+    "version": "0.8.2",
+    "dumpable": 1
+}
