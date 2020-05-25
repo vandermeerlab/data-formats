@@ -1,24 +1,14 @@
-cfg_s.ncs_in = '/Users/manishm/Work/vanDerMeerLab/NWB/data/MotivationalT-v2/R050/R050-2014-03-31_raw/R050-2014-03-31-CSC01a.ncs';
-cfg_s.ntt_in = '/Users/manishm/Work/vanDerMeerLab/NWB/data/MotivationalT-v2/R050/R050-2014-03-31_raw/R050-2014-03-31-TT01.ntt';
 
-[a,b] = ConvertNtttoNcs(cfg_s);
-
-function [raw,waves] =ConvertNtttoNcs(cfg_in)
 %% ConvertNtttoNcs: convert a .ntt discontinuous file into multiple .ncs continously sampled files 
 
-
-%% default parameters
-cfg_def.ntt_in = {};
-cfg_def.ncs_in = {}; 
-cfg_def.ncs_out = 'out.ncs';
-
-cfg = ProcessConfig(cfg_def,cfg_in);
+cfg_in.ncs_in = '/Users/manishm/Work/vanDerMeerLab/NWB/data/MotivationalT-v2/R050/R050-2014-03-31_raw/R050-2014-03-31-CSC01a.ncs';
+cfg_in.ntt_in = '/Users/manishm/Work/vanDerMeerLab/NWB/data/MotivationalT-v2/R050/R050-2014-03-31_raw/R050-2014-03-31-TT02.ntt';
 
 data_out = [];
 %% identify channel numbers from ntt
 
 %% extract elements from Ntt file
-[Timestamps, ScNumbers, CellNumbers, Features, Samples, Header] =  Nlx2MatSpike(cfg.ntt_in, [1 1 1 1 1], 1, 1, [] );
+[Timestamps, ScNumbers, CellNumbers, Features, Samples, Header] =  Nlx2MatSpike(cfg_in.ntt_in, [1 1 1 1 1], 1, 1, [] );
 Fs = regexp([Header{:}],'(?<=SamplingFrequency[^0-9]*)[0-9]*','match'); 
 Fs  = str2num(Fs{1});
 
@@ -100,12 +90,13 @@ for i = 1:length(rid1)
 %     disp(strcat(2,'Method2: ',num2str(rid2(i))));
 end
 dummy = 1;
-fidOut = fopen('test1', 'w');
+fidOut = fopen('test2', 'w');
 fwrite(fidOut, raw_form, 'int16');
 fclose(fidOut);
+save('Timestamps.mat','rid1');
 
-% Version 2: Replace long segments of zero with  with staight lines
-end
+% TODO: Version 2: Replace long segments of zero with  with staight lines
+
 
 % Finds the overlapping bins between two close occuring spike waves
 % S1 is the prev sample, S2 is the current sample
