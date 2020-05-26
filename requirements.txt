@@ -1,0 +1,8 @@
+# File with a list of minimal versions of desired Python modules to have installed
+# to work with the notebooks
+# Just use  pip install -r requirements.txt  in your Python environment
+spikeextractors >= 0.8.4
+spiketoolkit >= 0.6.3
+spikesorters >= 0.3.3
+phy >= 2.0b1
+
