@@ -1,102 +1,113 @@
+input_folder = '/Users/manishm/Work/vanDerMeerLab/NWB/data/MotivationalT-v2/R050/R050-2014-03-31_raw/';
+ncs_in = '/Users/manishm/Work/vanDerMeerLab/NWB/data/MotivationalT-v2/R050/R050-2014-03-31_raw/R050-2014-03-31-CSC01a.ncs';
+output_folder = '/Users/manishm/Work/vanDerMeerLab/NWB/data/R50_converted/'
+
+%Get the list of ntt files in the input directory
+searchString = strcat(2,input_folder,'*.ntt');
+if searchString(1) ~= '/'
+    searchString = searchString(2:end);
+end
+ntt_list = dir(searchString);
+
 
 %% ConvertNtttoNcs: convert a .ntt discontinuous file into multiple .ncs continously sampled files 
-
-cfg_in.ncs_in = '/Users/manishm/Work/vanDerMeerLab/NWB/data/MotivationalT-v2/R050/R050-2014-03-31_raw/R050-2014-03-31-CSC01a.ncs';
-cfg_in.ntt_in = '/Users/manishm/Work/vanDerMeerLab/NWB/data/MotivationalT-v2/R050/R050-2014-03-31_raw/R050-2014-03-31-TT02.ntt';
-
-data_out = [];
-%% identify channel numbers from ntt
-
-%% extract elements from Ntt file
-[Timestamps, ScNumbers, CellNumbers, Features, Samples, Header] =  Nlx2MatSpike(cfg_in.ntt_in, [1 1 1 1 1], 1, 1, [] );
-Fs = regexp([Header{:}],'(?<=SamplingFrequency[^0-9]*)[0-9]*','match'); 
-Fs  = str2num(Fs{1});
-
-% get a corresponding .ncs
-[csc_Timestamps, ~, ~, csc_NumberOfValidSamples, csc_Samples, csc_Header] = Nlx2MatCSC(cfg_in.ncs_in, [1 1 1 1 1], 1, 1, []);
-
-%TODO: find a better way to find the common timebase
-step = 1e6/Fs;
-tvec = csc_Timestamps(1):step:csc_Timestamps(end)+1000000;
-raw_form = zeros(4,length(tvec));
-
-rid1 = zeros(1,length(Timestamps));
-rval1 = zeros(1, length(rid1));
-% rid2 = rid1;
-% rval2 = rval1;
-% nanlist = isnan(tvec);
-for i = 1:length(rid1)
-    lo = 1;
-    hi = length(tvec);
-    %TODO: Fix edge cases for the binary search
-    %tic;
-    while(lo <= hi)
-        mid = floor((lo+hi)/2);
-        if Timestamps(i) < tvec(mid)
-            if abs(Timestamps(i)-tvec(mid)) <= abs(Timestamps(i)-tvec(mid-1))
-                rval1(i) = abs(Timestamps(i)-tvec(mid));
-                rid1(i) = mid;
-                break;
-            else
-                hi = mid-1;
-                continue
+for idx = 1:length(ntt_list)
+    ntt_in = [ntt_list(idx).folder,'/',ntt_list(idx).name];
+    [Timestamps, ScNumbers, CellNumbers, Features, Samples, Header] =  Nlx2MatSpike(ntt_in, [1 1 1 1 1], 1, 1, [] );
+    % Get Common timebase from the .ncs file
+    %TODO: find a better way to find the common timebase
+    Fs = regexp([Header{:}],'(?<=SamplingFrequency[^0-9]*)[0-9]*','match'); 
+    Fs  = str2double(Fs{1});
+    [csc_Timestamps, ~, ~, csc_NumberOfValidSamples, csc_Samples, csc_Header] = Nlx2MatCSC(ncs_in, [1 1 1 1 1], 1, 1, []);
+    step = 1e6/Fs;
+    tvec = csc_Timestamps(1):step:csc_Timestamps(end)+1000000;
+    raw_form = zeros(4*length(ntt_list),length(tvec));
+    
+    rid1 = zeros(1,length(Timestamps));
+    rval1 = zeros(1, length(rid1));
+    % rid2 = rid1;
+    % rval2 = rval1;
+    % nanlist = isnan(tvec);
+    for i = 1:length(rid1)
+        lo = 1;
+        hi = length(tvec);
+        %TODO: Fix edge cases for the binary search
+        %tic;
+        while(lo <= hi)
+            mid = floor((lo+hi)/2);
+            if Timestamps(i) < tvec(mid)
+                if abs(Timestamps(i)-tvec(mid)) <= abs(Timestamps(i)-tvec(mid-1))
+                    rval1(i) = abs(Timestamps(i)-tvec(mid));
+                    rid1(i) = mid;
+                    break;
+                else
+                    hi = mid-1;
+                    continue
+                end
             end
-        end
-        if Timestamps(i) > tvec(mid)
-            if abs(Timestamps(i)-tvec(mid)) <= abs(Timestamps(i)-tvec(mid+1))
-                rval1(i) = abs(Timestamps(i)-tvec(mid));
-                rid1(i) = mid;
-                break;
-            else
-               lo = mid+1;
-                continue
+            if Timestamps(i) > tvec(mid)
+                if abs(Timestamps(i)-tvec(mid)) <= abs(Timestamps(i)-tvec(mid+1))
+                    rval1(i) = abs(Timestamps(i)-tvec(mid));
+                    rid1(i) = mid;
+                    break;
+                else
+                   lo = mid+1;
+                    continue
+                end
             end
+            % if Timestamps(i) == tvec(mid)
+            rval1(i) = abs(Timestamps(i)-tvec(mid));
+            rid1(i) = mid;
+            break;
         end
-        % if Timestamps(i) == tvec(mid)
-        rval1(i) = abs(Timestamps(i)-tvec(mid));
-        rid1(i) = mid;
-        break;
-    end
-    cur_sample = Samples(:,:,i);
-    cur_sample = permute(cur_sample,[2,1]);
-    if (i == 1)
-        raw_form(:,rid1(i)-7:rid1(i)+24) = cur_sample;
-    else
-        if rid1(i) - rid1(i-1) >= 32
+        cur_sample = Samples(:,:,i);
+        cur_sample = permute(cur_sample,[2,1]);
+        if (i == 1)
             raw_form(:,rid1(i)-7:rid1(i)+24) = cur_sample;
         else
-            prev_sample = Samples(:,:,i-1);
-            prev_sample = permute(prev_sample,[2,1]);
-            % This should ideally be unncessary, but just to be sure and
-            % avoid discrepancies due to rounding errors in timebin
-            % assignment
-            odx = findOverlap(prev_sample, cur_sample);
-            if odx == 0
-                disp('Overlap failed')
-            else
-%                 disp(strcat(2, 'Overlap:',num2str(rid1(i) - rid1(i-1)),', ',num2str(odx)));
+            if rid1(i) - rid1(i-1) >= 32
                 raw_form(:,rid1(i)-7:rid1(i)+24) = cur_sample;
+            else
+                prev_sample = Samples(:,:,i-1);
+                prev_sample = permute(prev_sample,[2,1]);
+                % This should ideally be unncessary, but just to be sure and
+                % avoid discrepancies due to rounding errors in timebin
+                % assignment
+                odx = findOverlap(prev_sample, cur_sample);
+                if odx == 0
+                    disp('Overlap failed')
+                else
+    %                 disp(strcat(2, 'Overlap:',num2str(rid1(i) - rid1(i-1)),', ',num2str(odx)));
+                    raw_form(:,rid1(i)-7:rid1(i)+24) = cur_sample;
+                end
             end
+
         end
-        
     end
-    
-%     toc;
-    % Naive way to find the c
-%     tic;
-%     [rval2(i), rid2(i)] = nanmin(abs(tvec-Timestamps(i)));
-%     toc;
-%     disp(strcat(2,'Method1: ',num2str(rid1(i))));
-%     disp(strcat(2,'Method2: ',num2str(rid2(i))));
+
+    %     toc;
+        % Naive way to find the c
+    %     tic;
+    %     [rval2(i), rid2(i)] = nanmin(abs(tvec-Timestamps(i)));
+    %     toc;
+    %     disp(strcat(2,'Method1: ',num2str(rid1(i))));
+    %     disp(strcat(2,'Method2: ',num2str(rid2(i))));
+    %Get the list of ntt files in the input directory
+    output_file = strcat(2,output_folder,'/temp',num2str(idx),'.dat');
+    if output_file(1) ~= '/'
+        output_file = output_file(2:end);
+    end
+    output_ts_file = strcat(2,output_folder,'/Timestamps',num2str(idx),'.mat');
+    if output_ts_file(1) ~= '/'
+        output_ts_file = output_ts_file(2:end);
+    end
+    fidOut = fopen(output_file, 'w');
+    fwrite(fidOut, raw_form, 'int16');
+    fclose(fidOut);
+    save(output_ts_file,'rid1');
+
+    % TODO: Version 2: Replace long segments of zero with  with staight lines
 end
-dummy = 1;
-fidOut = fopen('test2', 'w');
-fwrite(fidOut, raw_form, 'int16');
-fclose(fidOut);
-save('Timestamps.mat','rid1');
-
-% TODO: Version 2: Replace long segments of zero with  with staight lines
-
 
 % Finds the overlapping bins between two close occuring spike waves
 % S1 is the prev sample, S2 is the current sample
