@@ -1,6 +1,6 @@
 input_folder = '/Users/manishm/Work/vanDerMeerLab/NWB/data/MotivationalT-v2/R050/R050-2014-03-31_raw/';
 ncs_in = '/Users/manishm/Work/vanDerMeerLab/NWB/data/MotivationalT-v2/R050/R050-2014-03-31_raw/R050-2014-03-31-CSC01a.ncs';
-output_folder = '/Users/manishm/Work/vanDerMeerLab/NWB/data/R50_converted/'
+output_folder = '/Users/manishm/Work/vanDerMeerLab/NWB/data/R50_converted/';
 
 %Get the list of ntt files in the input directory
 searchString = strcat(2,input_folder,'*.ntt');
