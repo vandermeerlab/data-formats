@@ -21,7 +21,7 @@ for idx = 1:length(ntt_list)
     [csc_Timestamps, ~, ~, csc_NumberOfValidSamples, csc_Samples, csc_Header] = Nlx2MatCSC(ncs_in, [1 1 1 1 1], 1, 1, []);
     step = 1e6/Fs;
     tvec = csc_Timestamps(1):step:csc_Timestamps(end)+1000000;
-    raw_form = zeros(4*length(ntt_list),length(tvec));
+    raw_form = zeros(4,length(tvec));
     
     rid1 = zeros(1,length(Timestamps));
     rval1 = zeros(1, length(rid1));
@@ -93,11 +93,12 @@ for idx = 1:length(ntt_list)
     %     disp(strcat(2,'Method1: ',num2str(rid1(i))));
     %     disp(strcat(2,'Method2: ',num2str(rid2(i))));
     %Get the list of ntt files in the input directory
-    output_file = strcat(2,output_folder,'/temp',num2str(idx),'.dat');
+    output_suffix = ntt_list(idx).name(strfind(ntt_list(idx).name,'TT'): strfind(ntt_list(idx).name,'.')-1);
+    output_file = strcat(2,output_folder,'/temp_',output_suffix,'.dat');
     if output_file(1) ~= '/'
         output_file = output_file(2:end);
     end
-    output_ts_file = strcat(2,output_folder,'/Timestamps',num2str(idx),'.mat');
+    output_ts_file = strcat(2,output_folder,'/Timestamps_',output_suffix,'.mat');
     if output_ts_file(1) ~= '/'
         output_ts_file = output_ts_file(2:end);
     end
