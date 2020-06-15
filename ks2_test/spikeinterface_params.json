@@ -1,0 +1,408 @@
+{
+    "sorter_params": {
+        "detect_threshold": 5,
+        "projection_threshold": [
+            20,
+            15
+        ],
+        "preclust_threshold": 8,
+        "car": true,
+        "minFR": 0.1,
+        "minfr_goodchannels": 0.1,
+        "freq_min": 150,
+        "sigmaMask": 30,
+        "nPCs": 3,
+        "ntbuff": 64,
+        "nfilt_factor": 4,
+        "NT": 65600,
+        "keep_good_only": false
+    },
+    "recording": {
+        "class": "spikeextractors.multirecordingtimeextractor.MultiRecordingTimeExtractor",
+        "module": "spikeextractors",
+        "kwargs": {
+            "recordings": [
+                {
+                    "class": "spikeextractors.extractors.neoextractors.neuralynxextractor.NeuralynxRecordingExtractor",
+                    "module": "spikeextractors",
+                    "kwargs": {
+                        "dirname": "D:\\M40\\M40-2020-04-29-CDOD12",
+                        "seg_index": 0,
+                        "block_index": 0
+                    },
+                    "key_properties": {
+                        "group": [
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0
+                        ],
+                        "location": [
+                            [
+                                NaN,
+                                NaN,
+                                NaN
+                            ],
+                            [
+                                NaN,
+                                NaN,
+                                NaN
+                            ],
+                            [
+                                NaN,
+                                NaN,
+                                NaN
+                            ],
+                            [
+                                NaN,
+                                NaN,
+                                NaN
+                            ],
+                            [
+                                NaN,
+                                NaN,
+                                NaN
+                            ],
+                            [
+                                NaN,
+                                NaN,
+                                NaN
+                            ],
+                            [
+                                NaN,
+                                NaN,
+                                NaN
+                            ],
+                            [
+                                NaN,
+                                NaN,
+                                NaN
+                            ],
+                            [
+                                NaN,
+                                NaN,
+                                NaN
+                            ],
+                            [
+                                NaN,
+                                NaN,
+                                NaN
+                            ],
+                            [
+                                NaN,
+                                NaN,
+                                NaN
+                            ],
+                            [
+                                NaN,
+                                NaN,
+                                NaN
+                            ],
+                            [
+                                NaN,
+                                NaN,
+                                NaN
+                            ],
+                            [
+                                NaN,
+                                NaN,
+                                NaN
+                            ],
+                            [
+                                NaN,
+                                NaN,
+                                NaN
+                            ],
+                            [
+                                NaN,
+                                NaN,
+                                NaN
+                            ],
+                            [
+                                NaN,
+                                NaN,
+                                NaN
+                            ],
+                            [
+                                NaN,
+                                NaN,
+                                NaN
+                            ],
+                            [
+                                NaN,
+                                NaN,
+                                NaN
+                            ],
+                            [
+                                NaN,
+                                NaN,
+                                NaN
+                            ],
+                            [
+                                NaN,
+                                NaN,
+                                NaN
+                            ],
+                            [
+                                NaN,
+                                NaN,
+                                NaN
+                            ],
+                            [
+                                NaN,
+                                NaN,
+                                NaN
+                            ],
+                            [
+                                NaN,
+                                NaN,
+                                NaN
+                            ]
+                        ]
+                    },
+                    "version": "0.8.4",
+                    "dumpable": true
+                },
+                {
+                    "class": "spikeextractors.extractors.neoextractors.neuralynxextractor.NeuralynxRecordingExtractor",
+                    "module": "spikeextractors",
+                    "kwargs": {
+                        "dirname": "D:\\M40\\M40-2020-04-29-CDOD12",
+                        "seg_index": 1,
+                        "block_index": 0
+                    },
+                    "key_properties": {
+                        "group": null,
+                        "location": null
+                    },
+                    "version": "0.8.4",
+                    "dumpable": true
+                },
+                {
+                    "class": "spikeextractors.extractors.neoextractors.neuralynxextractor.NeuralynxRecordingExtractor",
+                    "module": "spikeextractors",
+                    "kwargs": {
+                        "dirname": "D:\\M40\\M40-2020-04-29-CDOD12",
+                        "seg_index": 2,
+                        "block_index": 0
+                    },
+                    "key_properties": {
+                        "group": null,
+                        "location": null
+                    },
+                    "version": "0.8.4",
+                    "dumpable": true
+                },
+                {
+                    "class": "spikeextractors.extractors.neoextractors.neuralynxextractor.NeuralynxRecordingExtractor",
+                    "module": "spikeextractors",
+                    "kwargs": {
+                        "dirname": "D:\\M40\\M40-2020-04-29-CDOD12",
+                        "seg_index": 3,
+                        "block_index": 0
+                    },
+                    "key_properties": {
+                        "group": null,
+                        "location": null
+                    },
+                    "version": "0.8.4",
+                    "dumpable": true
+                },
+                {
+                    "class": "spikeextractors.extractors.neoextractors.neuralynxextractor.NeuralynxRecordingExtractor",
+                    "module": "spikeextractors",
+                    "kwargs": {
+                        "dirname": "D:\\M40\\M40-2020-04-29-CDOD12",
+                        "seg_index": 4,
+                        "block_index": 0
+                    },
+                    "key_properties": {
+                        "group": null,
+                        "location": null
+                    },
+                    "version": "0.8.4",
+                    "dumpable": true
+                }
+            ],
+            "epoch_names": [
+                "0",
+                "1",
+                "2",
+                "3",
+                "4"
+            ]
+        },
+        "key_properties": {
+            "group": [
+                4,
+                3,
+                4,
+                4,
+                3,
+                4,
+                3,
+                5,
+                6,
+                5,
+                6,
+                6,
+                5,
+                6,
+                5,
+                7,
+                8,
+                7,
+                8,
+                8,
+                7,
+                8,
+                7,
+                3
+            ],
+            "location": [
+                [
+                    182.3223304703363,
+                    167.6776695296637,
+                    NaN
+                ],
+                [
+                    200.0,
+                    35.35533905932737,
+                    NaN
+                ],
+                [
+                    200.0,
+                    185.35533905932738,
+                    NaN
+                ],
+                [
+                    200.0,
+                    150.0,
+                    NaN
+                ],
+                [
+                    200.0,
+                    0.0,
+                    NaN
+                ],
+                [
+                    217.6776695296637,
+                    167.6776695296637,
+                    NaN
+                ],
+                [
+                    217.6776695296637,
+                    17.677669529663685,
+                    NaN
+                ],
+                [
+                    382.32233047033634,
+                    17.677669529663685,
+                    NaN
+                ],
+                [
+                    382.32233047033634,
+                    167.6776695296637,
+                    NaN
+                ],
+                [
+                    400.0,
+                    35.35533905932737,
+                    NaN
+                ],
+                [
+                    400.0,
+                    185.35533905932738,
+                    NaN
+                ],
+                [
+                    400.0,
+                    150.0,
+                    NaN
+                ],
+                [
+                    400.0,
+                    0.0,
+                    NaN
+                ],
+                [
+                    417.67766952966366,
+                    167.6776695296637,
+                    NaN
+                ],
+                [
+                    417.67766952966366,
+                    17.677669529663685,
+                    NaN
+                ],
+                [
+                    582.3223304703363,
+                    17.677669529663685,
+                    NaN
+                ],
+                [
+                    582.3223304703363,
+                    167.6776695296637,
+                    NaN
+                ],
+                [
+                    600.0,
+                    35.35533905932737,
+                    NaN
+                ],
+                [
+                    600.0,
+                    185.35533905932738,
+                    NaN
+                ],
+                [
+                    600.0,
+                    150.0,
+                    NaN
+                ],
+                [
+                    600.0,
+                    0.0,
+                    NaN
+                ],
+                [
+                    617.6776695296637,
+                    167.6776695296637,
+                    NaN
+                ],
+                [
+                    617.6776695296637,
+                    17.677669529663685,
+                    NaN
+                ],
+                [
+                    182.3223304703363,
+                    17.677669529663685,
+                    NaN
+                ]
+            ]
+        },
+        "version": "0.8.4",
+        "dumpable": true
+    }
+}
