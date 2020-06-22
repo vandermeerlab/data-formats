@@ -1,0 +1,9 @@
+* images
+
+screenshots apparently could also get embedded
+From
+https://github.com/NeurodataWithoutBorders/nwb-schema/issues/451
+use
+https://nwb-schema.readthedocs.io/en/latest/format.html#images to store a collection of images
+
+and then would be nice to check if nwb widgets would display them
