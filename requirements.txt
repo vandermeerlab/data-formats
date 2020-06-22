@@ -7,3 +7,4 @@ spikesorters >= 0.3.3
 phy >= 2.0b1
 neo >= 0.8.0
 nept >= 0.1.0
+pynwb >= 1.3.2
