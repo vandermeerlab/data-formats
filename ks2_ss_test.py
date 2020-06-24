@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import os
 
 
-sample_file1 = 'D:\M40\M40-2020-04-29-CDOD12\CSC1.ncs'
+sample_file1 = 'data\BiconditionalOdor\M040-2020-04-29-CDOD12\CSC12.ncs'
 dname1 = (op.dirname(sample_file1))
 # print(dname1)
 
@@ -160,7 +160,8 @@ os.chdir('C:/Users/mvdmlab')
 
 
 
-ks2_out0 = ss.run_kilosort2(recordingFull)
+ks2_out0 = ss.run_kilosort2(recordingFull, output_folder = 'C:/Users/mvdmlab/ks2_test_without_group')
+ks2_out1 = ss.run_kilosort2(recordingFull, output_folder = 'C:/Users/mvdmlab/ks2_test_with_group', grouping_property='group' )
 # Does not work if the working folder is in a different drive
 # ks2_out1 = ss.run_sorters(['kilosort2'],[recordingFull], working_folder='C:/Users/mvdmlab/ss_ks2test')
 
