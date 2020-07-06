@@ -1,5 +1,5 @@
 [submodule "data"]
 	path = data
-	url = http://datasets.datalad.org/labs/mvdm/.git
+	url = https://github.com/vandermeerlab/labs--mvdm.git
 	branch = master
 	datalad-id = e8891f36-b5f6-11e9-bece-002590f97d84
